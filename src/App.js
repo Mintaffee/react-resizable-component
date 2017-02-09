@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Resizer from './Components/Resizer';
 
 import './Stylesheets/App.css';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div> Blank App </div>
+      <div>
+        <Resizer></Resizer>
+      </div>
     );
   }
 }
