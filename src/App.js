@@ -6,8 +6,8 @@ import './Stylesheets/App.css';
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <Resizer width={300} height={300}></Resizer>
+      <div className={'avocado-container'}>
+        <Resizer width={300} height={300} maxWidth={600}></Resizer>
       </div>
     );
   }

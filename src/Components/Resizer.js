@@ -1,4 +1,5 @@
 import React from 'react';
+import ResizerHandle from './ResizerHandle';
 
 export default class Resizer extends React.Component {
 
@@ -7,21 +8,22 @@ export default class Resizer extends React.Component {
     super(props);
 
     this.state = {startX: null,
+                  maxWidth: this.props.maxWidth,
                   width: this.props.width,
+                  maxHeight: this.props.maxHeight,
                   height: this.props.height,
-                  backgroundColor: "red",
-                  opacity: 0.1,
-                  isResizing: false
+                  backgroundColor: "rgba(0, 0, 255, .5)",
+                  isResizing: false,
+                  position: 'relative'
     };
   }
 
-  componentDidMount() {
+  addListeners() {
     window.addEventListener('mousemove', this.onMouseMove.bind(this));
     window.addEventListener('mouseup', this.onMouseUp.bind(this));
-
   }
 
-  componentWillUnmount(){
+  removeListeners() {
     window.removeEventListener('mousemove', this.onMouseMove);
     window.removeEventListener('mouseup', this.onMouseUp);
   }
@@ -30,19 +32,22 @@ export default class Resizer extends React.Component {
     let style = this.getParsedStyleObject();
 
     return(
-      <div style={style} onMouseDown={this.onMouseDown.bind(this)}>
+      <div style={style}>
+        <ResizerHandle onMouseDown={this.onMouseDown.bind(this)}/>
       </div>
     )
   }
 
   // Update Methods
   updateColor(newColor) {
-    this.setState({backgrossundColor: newColor});
+    this.setState({backgroundColor: newColor});
 
   }
 
   updateWidth(newWidth) {
-    this.setState({width: newWidth});
+    if (newWidth <= this.state.maxWidth){
+      this.setState({width: newWidth});
+    }
   }
 
   // User Interaction Methods
@@ -50,6 +55,7 @@ export default class Resizer extends React.Component {
     console.log('down');
     this.setState({ isResizing: true})
     this.setState({ startX: e.clientX});
+    this.addListeners();
   }
 
   onMouseMove(e) {
@@ -58,7 +64,7 @@ export default class Resizer extends React.Component {
     if (this.state.isResizing === true){
       let newWidth = this.calculateNewWidth(this.state.startX, this.state.width, e.clientX);
       this.updateWidth(newWidth);
-      // this.setState({ startX: e.clientX});
+      this.setState({ startX: e.clientX});
     }
 
   }
@@ -66,6 +72,7 @@ export default class Resizer extends React.Component {
   onMouseUp(e) {
     console.log('up');
     this.setState({ isResizing: false})
+    this.removeListeners();
   }
 
   // Utilities
@@ -80,6 +87,6 @@ export default class Resizer extends React.Component {
   }
 
   getParsedStyleObject() {
-    return {width: this.state.width, height: this.state.height, backgroundColor: this.state.backgroundColor, opacity: this.state.opacity}
+    return {width: this.state.width, height: this.state.height, backgroundColor: this.state.backgroundColor, opacity: this.state.opacity, position: this.state.position}
   }
 }
