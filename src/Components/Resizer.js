@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 
 export default class Resizer extends React.Component {
 
@@ -14,9 +13,6 @@ export default class Resizer extends React.Component {
                   opacity: 0.1,
                   isResizing: false
     };
-
-    // this.onMouseMove = this.onMouseMove.bind(this);
-    // this.onMouseUp = this.onMouseUp.bind(this);
   }
 
   componentDidMount() {
@@ -26,8 +22,8 @@ export default class Resizer extends React.Component {
   }
 
   componentWillUnmount(){
-    window.removeEventListener('mousemove', this.onMouseMove)
-    window.removeEventListener('mouseup', this.onMouseUp)
+    window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener('mouseup', this.onMouseUp);
   }
 
   render() {
@@ -41,18 +37,19 @@ export default class Resizer extends React.Component {
 
   // Update Methods
   updateColor(newColor) {
-    this.setState({backgrossundColor: newColor})
+    this.setState({backgrossundColor: newColor});
 
   }
+
   updateWidth(newWidth) {
-    this.setState({width: newWidth})
+    this.setState({width: newWidth});
   }
 
   // User Interaction Methods
   onMouseDown(e) {
     console.log('down');
-    this.setState({ startX: e.clientX})
     this.setState({ isResizing: true})
+    this.setState({ startX: e.clientX});
   }
 
   onMouseMove(e) {
@@ -61,7 +58,9 @@ export default class Resizer extends React.Component {
     if (this.state.isResizing === true){
       let newWidth = this.calculateNewWidth(this.state.startX, this.state.width, e.clientX);
       this.updateWidth(newWidth);
+      // this.setState({ startX: e.clientX});
     }
+
   }
 
   onMouseUp(e) {
@@ -81,6 +80,6 @@ export default class Resizer extends React.Component {
   }
 
   getParsedStyleObject() {
-    return {width: this.state.width, height: this.state.width, backgroundColor: this.state.backgroundColor, opacity: this.state.opacity}
+    return {width: this.state.width, height: this.state.height, backgroundColor: this.state.backgroundColor, opacity: this.state.opacity}
   }
 }
