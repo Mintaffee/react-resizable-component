@@ -7,7 +7,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Resizer></Resizer>
+        <Resizer width={300} height={300}></Resizer>
       </div>
     );
   }
