@@ -7,7 +7,8 @@ class App extends React.Component {
   render() {
     return (
       <div className={'avocado-container'}>
-        <Resizer width={300} height={300} maxWidth={600}></Resizer>
+        <Resizer maxWidth={600} maxHeight={300} scrollAxis={'x'}>
+        </Resizer>
       </div>
     );
   }
