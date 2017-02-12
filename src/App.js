@@ -6,9 +6,11 @@ import './Stylesheets/App.css';
 class App extends React.Component {
   render() {
     return (
-      <div className={'avocado-container'}>
-        <Resizer maxWidth={600} maxHeight={300} scrollAxis={'x'}>
-        </Resizer>
+      <div>
+        <div className={'avocado-container'} ref='resizerContainer'>
+          <Resizer scrollAxis={'y'}>
+          </Resizer>
+        </div>
       </div>
     );
   }

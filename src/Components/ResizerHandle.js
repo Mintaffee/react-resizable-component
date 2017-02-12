@@ -8,6 +8,8 @@ export default class ResizerHandle extends React.Component {
 
     let style = { width: null,
                   height: null,
+
+                  // TODO: Make setable throught props
                   backgroundColor: "rgba(255, 0, 0, 1)",
                   cursor: null,
                   top: null,
@@ -27,11 +29,11 @@ export default class ResizerHandle extends React.Component {
       style.width = '100%';
       style.height = '10px';
       style.bottom = 0;
-      style.right = 0;
+      style.left = 0;
       style.cursor = 'row-resize';
     }
 
-    this.state = {style};
+    this.state = { style };
   }
 
   render() {
